@@ -14,11 +14,15 @@ jobs:
           cmake ..
           make
           make test
-  Test_Add:
-    runs-on: ubuntu-latest
+  Tests:
     needs: Compilation
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: [Add, Sub, Mul, Div]
+        test2: [add, sub, mul, div]
     steps:
-      - name: Test_Add
+      - name: Test_${{ matrix.test }} 
         run: |
           last_directory=$(basename ${{ runner.workspace }})
           git clone https://github.com/${{ github.repository }}.git
@@ -27,49 +31,7 @@ jobs:
           cd build
           cmake ..
           make
-          ./src/calculator add 10 5
-  Test_Div:
-    runs-on: ubuntu-latest
-    needs: Compilation
-    steps:
-      - name: Test_Div
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          git clone https://github.com/${{ github.repository }}.git
-          cd ./$last_directory
-          mkdir build
-          cd build
-          cmake ..
-          make
-          ./src/calculator div 10 5
-  Test_Mul:
-    runs-on: ubuntu-latest
-    needs: Compilation
-    steps:
-      - name: Test_Mul
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          git clone https://github.com/${{ github.repository }}.git
-          cd ./$last_directory
-          mkdir build
-          cd build
-          cmake ..
-          make
-          ./src/calculator mul 10 5
-  Test_Sub:
-    runs-on: ubuntu-latest
-    needs: Compilation
-    steps:
-      - name: Test_Sub
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          git clone https://github.com/${{ github.repository }}.git
-          cd ./$last_directory
-          mkdir build
-          cd build
-          cmake ..
-          make
-          ./src/calculator sub 10 5
+          ./src/calculator ${{ matrix.test2 }} 10 5
   Deploy:
     needs: Test_Add, Test_Div, Test_Mul, Test_Sub
     runs-on: ubuntu-latest
