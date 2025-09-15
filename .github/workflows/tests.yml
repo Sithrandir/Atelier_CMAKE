@@ -14,7 +14,7 @@ jobs:
           cmake ..
           make
           make test
-  Test:
+  Test_Add:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
@@ -28,6 +28,10 @@ jobs:
           cmake ..
           make
           ./src/calculator add 10 5
+  Test_Div:
+    runs-on: ubuntu-latest
+    needs: Compilation
+    steps:
       - name: Test_Div
         run: |
           last_directory=$(basename ${{ runner.workspace }})
@@ -38,6 +42,10 @@ jobs:
           cmake ..
           make
           ./src/calculator div 10 5
+  Test_Mul:
+    runs-on: ubuntu-latest
+    needs: Compilation
+    steps:
       - name: Test_Mul
         run: |
           last_directory=$(basename ${{ runner.workspace }})
@@ -48,6 +56,10 @@ jobs:
           cmake ..
           make
           ./src/calculator mul 10 5
+  Test_Sub:
+    runs-on: ubuntu-latest
+    needs: Compilation
+    steps:
       - name: Test_Sub
         run: |
           last_directory=$(basename ${{ runner.workspace }})
@@ -58,8 +70,8 @@ jobs:
           cmake ..
           make
           ./src/calculator sub 10 5
-  Deploy:
-    needs: Test
+Deploy:
+    needs: Test_Add, Test_Div, Test_Mul, Test_Sub
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
