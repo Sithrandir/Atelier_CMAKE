@@ -32,6 +32,9 @@ jobs:
           make
           func=$(echo "${{ matrix.test }}" | tr '[:upper:]' '[:lower:]')
           ./src/calculator $func 10 5
+      - name: Test_Car
+        run: |
+          ./src/calculator car 5
   Deploy:
     needs: Tests
     runs-on: ubuntu-latest
