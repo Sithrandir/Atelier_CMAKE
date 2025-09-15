@@ -59,7 +59,7 @@ jobs:
           make
           ./src/calculator sub 10 5
   Deploy:
-    needs: Test_Add, Test_Div, Test_Mul, Test_Sub
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
