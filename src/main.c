@@ -8,7 +8,6 @@ int main(int argc, char *argv[]){
 	{
 		char* op = argv[1];
 		char* a = argv[2];
-	}
 	if (argc == 4)
 	{
 		char* b = argv[3];
@@ -33,6 +32,8 @@ int main(int argc, char *argv[]){
 	else if (strcmp(op, "car") == 0) {
 		r = _div(atof(a), atof(b));
 		printf("%lf",r);
+	}
+	else {printf("Erreur d'operation");}
 	}
 	else {printf("Erreur de parametres");}
 	return 0;
