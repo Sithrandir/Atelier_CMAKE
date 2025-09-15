@@ -33,7 +33,7 @@ jobs:
           make
           ./src/calculator ${{ matrix.test2 }} 10 5
   Deploy:
-    needs: Test_Add, Test_Div, Test_Mul, Test_Sub
+    needs: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
