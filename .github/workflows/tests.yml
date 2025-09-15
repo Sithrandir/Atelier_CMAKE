@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: [Add, Sub, Mul, Div]
+        test: [Add, Sub, Mul, Div, Car]
     steps:
       - name: Test_${{ matrix.test }} 
         run: |
@@ -30,13 +30,15 @@ jobs:
           cd build
           cmake ..
           make
-          func=$(echo "${{ matrix.test }}" | tr '[:upper:]' '[:lower:]')
-          ./src/calculator $func 10 5
-      - name: Test_Car
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          cd ./$last_directory/build
-          ./src/calculator car 5
+          case "${{ matrix.test }}" in
+            Car)
+              ./src/calculator car 5
+              ;;
+            *)
+              func=$(echo "${{ matrix.test }}" | tr '[:upper:]' '[:lower:]')
+              ./src/calculator $func 10 5
+              ;;
+          esac
   Deploy:
     needs: Tests
     runs-on: ubuntu-latest
