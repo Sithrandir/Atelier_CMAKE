@@ -20,7 +20,6 @@ jobs:
     strategy:
       matrix:
         test: [Add, Sub, Mul, Div]
-        test2: [add, sub, mul, div]
     steps:
       - name: Test_${{ matrix.test }} 
         run: |
@@ -31,7 +30,7 @@ jobs:
           cd build
           cmake ..
           make
-          ./src/calculator ${{ matrix.test2 }} 10 5
+          ./src/calculator ${{ matrix.test | toLowerCase() }} 10 5
   Deploy:
     needs: Tests
     runs-on: ubuntu-latest
